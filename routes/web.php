@@ -1,18 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BPJSController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+Route::get('/BPJSs', [BPJSController::class, 'index']);
+Route::get('/BPJSs/{id}', [BPJSController::class, 'show']);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::post('/BPJSs/register', [BPJSController::class, 'register']);
+Route::post('/BPJSs/antrian', [BPJSController::class, 'antrian']);
