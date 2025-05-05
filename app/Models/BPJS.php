@@ -2,30 +2,19 @@
 
 namespace App\Models;
 
-class BPJS 
+use Illuminate\Database\Eloquent\Model;
+
+class BPJS extends Model
 {
-    // Data dummy seperti dari database
-    protected static function getDummyData()
-    {
-        return [
-            ['id' => 1, 'title' => 'pendaftaran BPJS'],
-            ['id' => 2, 'title' => 'ambil antrian'],
-        ];
-    }
+    protected $table = 'pendaftars';
 
-    public static function all()
-    {
-        return self::getDummyData();
-    }
-
-    public static function find($id)
-    {
-        $data = self::getDummyData();
-        foreach ($data as $item) {
-            if ($item['id'] == $id) {
-                return $item;
-            }
-        }
-        return null;
-    }
+    protected $fillable = [
+        'nama',
+        'tanggal_lahir',
+        'jenis_kelamin',
+        'telepon',
+        'bb',
+        'tb',
+        'bpjs_id',
+    ];
 }

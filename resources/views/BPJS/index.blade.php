@@ -1,19 +1,34 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar BPJS')
-
 @section('content')
-    <h1>Daftar BPJS</h1>
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Sistem Registrasi BPJS</h1>
+        <p class="text-muted">Layanan pendaftaran dan pengecekan nomor BPJS dengan mudah dan cepat.</p>
+    </div>
 
-    @if(count($data) > 0)
-        <ul>
-            @foreach($data as $BPJS)
-                <li>
-                    <a href="{{ url('/BPJSs/' . $BPJS['id']) }}">{{ $BPJS['title'] }}</a>
-                </li>
-            @endforeach
-        </ul>
-    @else
-        <p>Tidak ada data BPJS.</p>
-    @endif
+    <div class="row justify-content-center">
+        <div class="col-md-5 mb-4">
+            <div class="card shadow rounded-4 border-0 h-100">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-person-plus display-4 text-success mb-3"></i>
+                    <h4 class="card-title mb-3">Pendaftaran Pelanggan BPJS</h4>
+                    <p class="card-text text-muted">Daftarkan diri Anda untuk mendapatkan nomor peserta BPJS.</p>
+                    <a href="{{ route('bpjs.show', ['mode' => 'daftar']) }}" class="btn btn-success btn-lg w-100">Daftar Sekarang</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5 mb-4">
+            <div class="card shadow rounded-4 border-0 h-100">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-search display-4 text-info mb-3"></i>
+                    <h4 class="card-title mb-3">Cek Nomor BPJS</h4>
+                    <p class="card-text text-muted">Cari dan lihat informasi berdasarkan ID Pendaftar Anda.</p>
+                    <a href="{{ route('bpjs.show', ['mode' => 'cek']) }}" class="btn btn-info btn-lg w-100">Cek Sekarang</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

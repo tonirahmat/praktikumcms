@@ -3,55 +3,57 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\BPJS;
+use App\Models\Pendaftar;
 
 class BPJSController extends Controller
 {
+    // Halaman utama
     public function index()
     {
-        $data = BPJS::all();
-        return view('bpjs.index', ['data' => $data]);
+        return view('BPJS.index');
     }
 
-    public function show($id)
+    // Tampilkan form: daftar atau cek
+    public function show(Request $request)
     {
-        $data = BPJS::find($id);
-        if ($data) {
-            return view('bpjs.show', ['data' => $data]);
-        } else {
-            return abort(404, 'Data tidak ditemukan');
+        $mode = $request->query('mode'); // 'daftar' atau 'cek'
+        $data = null;
+
+        if ($mode === 'cek' && $request->has('id_pendaftar')) {
+            $id = $request->input('id_pendaftar');
+            $data = Pendaftar::find($id);
         }
-    }
-    public function register(Request $request)
-    {
-        $data = [
-            'nama' => $request->input('nama'),
-            'alamat' => $request->input('alamat'),
-            'telepon' => $request->input('telepon'),
-        ];
 
-        // Simpan ke database jika diperlukan, misalnya: BPJS::create($data);
-
-        return view('bpjs.hasil', [
-            'jenis' => 'pendaftaran',
-            'data' => $data
-        ]);
+        return view('BPJS.show', compact('mode', 'data'));
     }
 
-    // Menangani pengambilan antrian
-    public function antrian(Request $request)
+    // Simpan data pendaftaran
+    public function store(Request $request)
     {
-        $data = [
-            'nama' => $request->input('nama'),
-            'nomor_antrian' => 'A' . rand(100, 999), // Contoh nomor antrian
-        ];
-
-        // Simpan ke database jika diperlukan
-
-        return view('bpjs.hasil', [
-            'jenis' => 'antrian',
-            'data' => $data
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|in:L,P',
+            'telepon' => 'required|string|max:20',
+            'bb' => 'required|numeric',
+            'tb' => 'required|numeric',
         ]);
+
+        $pendaftar = Pendaftar::create($validated);
+
+        // Generate bpjs_id: contoh sederhana
+        $pendaftar->bpjs_id = 'BPJS' . str_pad($pendaftar->id, 6, '0', STR_PAD_LEFT);
+        $pendaftar->save();
+
+        $mode = 'daftar';
+
+        return view('show', compact('pendaftar', 'mode'));
+    }
+
+    // (Opsional) Ambil semua data pendaftar
+    public function all()
+    {
+        $data = Pendaftar::all();
+        return view('data', compact('data'));
     }
 }
-
