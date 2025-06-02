@@ -12,6 +12,6 @@ class BPJSSeeder extends Seeder
      */
     public function run(): void
     {
-        BpjsSeeder::class;
+        BPJSSeeder::class;
     }
 }

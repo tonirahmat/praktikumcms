@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Database\Seeders\BPJSSeeder;
+
 
 return new class extends Migration
 {
@@ -12,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bpjs', function (Blueprint $table) {
-            $table->id();
+            $table->string('id');
             $table->timestamps();
         });
         $this->callSeeder();
@@ -22,7 +24,7 @@ return new class extends Migration
     private function callSeeder(): void
     {
         // Jalankan seeder secara manual
-        (new BpjsSeeder)->run();
+        (new BPJSSeeder)->run();
     }
 
     /**

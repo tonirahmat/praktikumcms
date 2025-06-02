@@ -2,19 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BPJS extends Model
+class Bpjs extends Model
 {
-    protected $table = 'pendaftars';
+    use HasFactory;
+
+    protected $table = 'bpjs'; // nama tabel
+    public $incrementing = false; // karena kolom 'id' bukan auto increment
+    protected $keyType = 'string'; // tipe data 'id' adalah string
 
     protected $fillable = [
-        'nama',
-        'tanggal_lahir',
-        'jenis_kelamin',
-        'telepon',
-        'bb',
-        'tb',
-        'bpjs_id',
+        'id',
+        // Tambahkan kolom lain di sini jika ada
     ];
 }

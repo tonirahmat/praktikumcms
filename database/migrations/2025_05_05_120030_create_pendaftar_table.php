@@ -3,23 +3,23 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Database\Seeders\PendaftarSeeder;
 
-return new class extends Migration
+class CreatependaftarTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
-        Schema::create('pendaftars', function (Blueprint $table) {
-            $table->id();
+        Schema::create('pendaftar', function (Blueprint $table) {
+            $table->id(); // ID primary key
             $table->string('nama');
-            $table->string('nik')->unique();
-            $table->string('no_hp')->nullable();
-            $table->string('alamat')->nullable();
-            $table->date('tanggal_lahir')->nullable();
-            $table->string('jenis_kelamin')->nullable();
-            $table->timestamps();
+            $table->date('tanggal_lahir');
+            $table->enum('jenis_kelamin', ['L', 'P']);
+            $table->string('telepon');
+            $table->decimal('bb', 5, 2); // berat badan, misalnya max 999.99 kg
+            $table->decimal('tb', 5, 2); // tinggi badan, misalnya max 999.99 cm
+            $table->string('bpjs_id')->unique();
+            // Jika tidak ingin timestamps:
+            // $table->timestamps();
         });
         $this->callSeeder();
         
@@ -28,7 +28,7 @@ return new class extends Migration
     private function callSeeder(): void
     {
         // Jalankan seeder secara manual
-        (new pendaftarSeeder)->run();
+        (new PendaftarSeeder)->run();
     }
 
     /**

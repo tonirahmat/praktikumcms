@@ -27,33 +27,43 @@ class BPJSController extends Controller
         return view('BPJS.show', compact('mode', 'data'));
     }
 
-    // Simpan data pendaftaran
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'nama' => 'required|string|max:255',
-            'tanggal_lahir' => 'required|date',
-            'jenis_kelamin' => 'required|in:L,P',
-            'telepon' => 'required|string|max:20',
-            'bb' => 'required|numeric',
-            'tb' => 'required|numeric',
-        ]);
+{
+    $validated = $request->validate([
+        'nama' => 'required',
+        'tanggal_lahir' => 'required|date',
+        'jenis_kelamin' => 'required|in:L,P',
+        'telepon' => 'required',
+        'bb' => 'required|numeric',
+        'tb' => 'required|numeric',
+    ]);
 
-        $pendaftar = Pendaftar::create($validated);
+    // Tambahkan ID BPJS otomatis
+    $validated['bpjs_id'] = '' . now()->format('YmdHis') . rand(100, 999);
 
-        // Generate bpjs_id: contoh sederhana
-        $pendaftar->bpjs_id = 'BPJS' . str_pad($pendaftar->id, 6, '0', STR_PAD_LEFT);
-        $pendaftar->save();
+    $pendaftar = Pendaftar::create($validated);
 
-        $mode = 'daftar';
-
-        return view('show', compact('pendaftar', 'mode'));
-    }
-
+    return view('bpjs.form', [
+        'mode' => 'daftar',
+        'pendaftar' => $pendaftar,
+    ]);
+}
     // (Opsional) Ambil semua data pendaftar
     public function all()
     {
         $data = Pendaftar::all();
         return view('data', compact('data'));
     }
+
+    public function hasil(Request $request)
+    {
+        // Validasi jika ada input id_pendaftar, boleh tidak ada
+        $request->validate([
+            'id_pendaftar' => 'sometimes|numeric',
+        ]);
+
+        // Render view 'bpjs.hasil'
+        return view('bpjs.hasil');
+    }
+    
 }
