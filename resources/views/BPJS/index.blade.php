@@ -29,6 +29,15 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-5 mb-4">
+            <div class="card shadow rounded-4 border-0 h-100">
+                <div class="card-body text-center p-4">
+                    <h4 class="card-title mb-3">Upload Foto</h4>
+                    <a href="{{ route('bpjs.upload', ['mode' => 'cek']) }}" class="btn btn-info btn-lg w-100">Cek Sekarang</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
