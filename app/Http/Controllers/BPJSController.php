@@ -84,4 +84,13 @@ public function cekPendaftar(Request $request)
     }
 }
 
+public function destroy($id)
+{
+    $pendaftar = Pendaftar::findOrFail($id);
+    $pendaftar->delete();
+
+    return redirect()->route('form.cek.pendaftar')->with('success', 'Data berhasil dihapus.');
+}
+
+
 }

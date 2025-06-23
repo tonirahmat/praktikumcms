@@ -14,3 +14,5 @@ Route::delete('/upload/{id}', [ImageController::class, 'destroy'])->name('image.
 Route::get('/cek-pendaftar', [BPJSController::class, 'formCekPendaftar'])->name('form.cek.pendaftar');
 Route::get('/cek-pendaftar/search', [BPJSController::class, 'cekPendaftar'])->name('bpjs.cek');
 
+Route::delete('/bpjs/delete/{id}', [BPJSController::class, 'destroy'])->name('bpjs.destroy');
+
