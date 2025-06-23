@@ -40,7 +40,7 @@
 
     @elseif($mode == 'cek')
         <h2>Cek Nomor BPJS</h2>
-        <form action="{{ route('bpjs.check') }}" method="GET">
+        <form action="{{ route('bpjs.cek') }}" method="GET">
             <div class="mb-2">
                 <label>Masukkan ID Pendaftar</label>
                 <input type="number" name="id_pendaftar" class="form-control" required>

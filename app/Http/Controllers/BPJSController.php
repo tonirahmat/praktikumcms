@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Models\Pendaftar;
+use App\Models\BPJS;
 
 class BPJSController extends Controller
 {
@@ -55,15 +56,32 @@ class BPJSController extends Controller
         return view('data', compact('data'));
     }
 
-    public function hasil(Request $request)
-    {
-        // Validasi jika ada input id_pendaftar, boleh tidak ada
-        $request->validate([
-            'id_pendaftar' => 'sometimes|numeric',
-        ]);
+public function formCekPendaftar()
+{
+    // Mengirim view awal form cek
+    return view('bpjs.cek');
+}
 
-        // Render view 'bpjs.hasil'
-        return view('bpjs.hasil');
+public function cekPendaftar(Request $request)
+{
+    // Validasi input
+    $request->validate([
+        'id_pendaftar' => 'required|integer'
+    ]);
+
+    try {
+        // Cari data pendaftar berdasarkan ID
+        $data = Pendaftar::findOrFail($request->id_pendaftar);
+
+        // Kirim data ke view
+        return view('bpjs.cek', compact('data'));
+    } catch (ModelNotFoundException $e) {
+        // Redirect balik ke form kalau tidak ditemukan
+        return redirect()
+            ->route('form.cek.pendaftar')
+            ->withInput()
+            ->withErrors('Pendaftar tidak ditemukan.');
     }
-    
+}
+
 }

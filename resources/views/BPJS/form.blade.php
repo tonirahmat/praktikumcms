@@ -12,6 +12,10 @@
 
         <div class="space-y-4 text-gray-700">
             <div class="flex justify-between">
+                <span class="font-semibold">ID</span>
+                <span>{{ $pendaftar->id }}</span>
+            </div>
+            <div class="flex justify-between">
                 <span class="font-semibold">Nama:</span>
                 <span>{{ $pendaftar->nama }}</span>
             </div>
@@ -43,7 +47,6 @@
 
         <div class="mt-6 text-center">
             <a href="{{ url('/') }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md transition">Kembali ke Beranda</a>
-        </div>
     </div>
 
 </body>
