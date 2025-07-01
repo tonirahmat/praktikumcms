@@ -1,64 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BPJS System</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <!-- Bootstrap CSS & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
+    <!-- Custom Styles -->
     <style>
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 1.4rem;
+        body {
+            background: linear-gradient(to right, #f0f4f8, #e2eafc);
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
         }
+
+        .navbar {
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.4rem;
+            color: #fff !important;
+        }
+
         .nav-link {
             font-weight: 500;
+            color: #f0f0f0 !important;
         }
-        .nav-item:hover {
+
+        .nav-item:hover .nav-link {
             background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .content-wrapper {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card-custom {
+            border-radius: 16px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+            border: none;
+            background: #ffffff;
+        }
+
+        footer {
+            background:rgb(30, 114, 75);
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            opacity: 0.7;
         }
     </style>
 </head>
-<body class="bg-light">
+<body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+    {{-- Navbar --}}
+    @include('partials.navbar')
+
+    {{-- Main Content --}}
+    <div class="container content-wrapper">
+        <div class="card card-custom p-4">
+            @yield('content')
+        </div>
+    </div>
+
+    {{-- Footer --}}
+    <footer>
         <div class="container">
-            <a class="navbar-brand" href="{{ route('index') }}">
-                <i class="bi bi-shield-plus"></i> BPJS System
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarMain">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('bpjs.show', ['mode' => 'daftar']) }}">
-                            <i class="bi bi-person-plus"></i> Pendaftaran
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('bpjs.show', ['mode' => 'cek']) }}">
-                            <i class="bi bi-search"></i> Cek BPJS
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('bpjs.upload', ['mode' => 'cek']) }}">
-                            <i class="bi bi-upload"></i> Upload Foto
-                        </a>
-                    </li>
-                </ul>
+            <div class="footer-text">
+                &copy; {{ date('Y') }} BPJS System. All rights reserved.
             </div>
         </div>
-    </nav>
-
-    <!-- Content -->
-    <div class="container py-4">
-        @yield('content')
-    </div>
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

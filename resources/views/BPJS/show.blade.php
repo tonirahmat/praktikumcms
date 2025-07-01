@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <a href="{{ route('index') }}" class="btn btn-secondary mb-3">← Kembali</a>
 
     @if ($mode == 'daftar')
         <h2>Pendaftaran Pelanggan BPJS</h2>
@@ -48,4 +47,8 @@
             <button type="submit" class="btn btn-info mt-2">Cek BPJS</button>
         </form>
     @endif
+    <br>
+    <a href="{{ route('index') }}" class="btn btn-secondary mb-1 small-btn">← Kembali</a>
 @endsection
+
+

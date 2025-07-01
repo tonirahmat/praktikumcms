@@ -42,5 +42,23 @@ class ImageController extends Controller
     $image->delete();
 
     return redirect()->route('bpjs.upload')->with('success', 'Gambar berhasil dihapus.');
+
+}
+public function upload(Request $request)
+{
+    $request->validate([
+        'title' => 'required|string|max:100',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // max 2MB
+    ]);
+
+    // Simpan file jika valid
+    $path = $request->file('image')->store('uploads', 'public');
+
+    $image = new ImageModel(); 
+    $image->title = $request->title;
+    $image->image_path = $path;
+    $image->save();
+
+    return redirect()->back()->with('success', 'Gambar berhasil diupload!')->with('image', $image);
 }
 }
