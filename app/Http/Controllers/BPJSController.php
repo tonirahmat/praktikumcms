@@ -80,7 +80,7 @@ public function cekPendaftar(Request $request)
         return redirect()
             ->route('form.cek.pendaftar')
             ->withInput()
-            ->withErrors('Pendaftar tidak ditemukan.');
+            ->withErrors('Pendaftar tidak ditemukan!');
     }
 }
 
